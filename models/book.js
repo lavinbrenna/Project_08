@@ -1,11 +1,13 @@
 'use strict';
+
 const Sequelize = require('sequelize');
 
-module.exports = (sequelize)=> {
+module.exports= (sequelize)=> {
     class Book extends Sequelize.Model{}
     Book.init({
         title:{
             type: Sequelize.STRING,
+            allowNull: false,
             validate:{
                 notEmpty:{
                     msg: "Title is required"
@@ -14,16 +16,17 @@ module.exports = (sequelize)=> {
         },
         author:{
             type: Sequelize.STRING,
-            validate:{
+            allowNull: false,
+            validate: {
                 notEmpty:{
-                    msg:"Author's name is required"
+                    msg: "Author's name is required"
                 }
             }
         },
-        genre:Sequelize.STRING,
+        genre: Sequelize.STRING,
         year: Sequelize.INTEGER
-
-    }, {sequelize});
-    
+    }, {
+        sequelize
+    });
     return Book;
-}
+};
