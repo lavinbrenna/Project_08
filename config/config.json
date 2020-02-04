@@ -2,10 +2,7 @@
   "development": {
    "dialect": "sqlite",
    "storage": "library.db",
-   "logging": true,
-   "define": {
-   "timestamps": false
-   }
+   "logging": true
   },
   "test": {
     "dialect": "sqlite",

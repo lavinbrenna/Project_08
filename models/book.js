@@ -1,3 +1,4 @@
+// creates book model for library database table
 'use strict';
 
 const Sequelize = require('sequelize');

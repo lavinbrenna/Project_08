@@ -11,9 +11,9 @@ function asyncHandler(cb){
       }
   }
 }
-/*GET all books*/
+/*GET all books by year ascending*/
 router.get('/', asyncHandler(async (req,res)=>{
-  const books = await Book.findAll({ order: [['title', 'ASC']]});
+  const books = await Book.findAll({ order: [['year', 'ASC']]});
   res.render("index", {books})
 }));
 
@@ -22,7 +22,7 @@ router.get('/new',(req,res)=>{
   res.render("books/new-book", {book: {}});
 });
 
-/* POST new books */
+/* POST new books if error, show error message*/
 router.post('/new', asyncHandler(async(req,res)=>{
   let book;
   try{
@@ -31,7 +31,7 @@ router.post('/new', asyncHandler(async(req,res)=>{
   }catch (error){
       if(error.name ==='SequelizeValidationError'){
        book = await Book.build();
-       res.render("error", {book, errors: error.errors})   
+       res.render("books/form-error", {book, errors: error.errors})   
       }else{
           throw error;
       }
@@ -39,7 +39,7 @@ router.post('/new', asyncHandler(async(req,res)=>{
 }
 ));
 
-/* GET Individual Books */
+/* GET Individual Books if book id doesn't exist, show page not found*/
 router.get("/:id", asyncHandler(async(req, res)=>{
 const book = await Book.findByPk(req.params.id);
 if(book){
